@@ -6,7 +6,7 @@
 /*   By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 15:29:09 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 12:05:37 by jrameau          ###   ########.fr       */
+/*   Updated: 2017/04/09 12:24:38 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,19 @@ void	ft_parseflags(char **input, t_contrast *data)
 
 }
 
-char	*ft_savefile(t_contrast *data, t_header *header)
+char	*ft_savefile(t_contrast *data)
 {
 	int			fd;
-	char		*buf;
+	char		buf[BUFF_SIZE + 1];
 	char		*pgm;
 	int			ret;
 
-	(void) header;
-	if ((fd = open(data->iname, O_RDONLY)) != -1)
-		buf = (char *)malloc(sizeof(char) + (BUFF_SIZE + 1));
-	else
+	if ((fd = open(data->iname, O_RDONLY)) == -1)
 	{
 		printf("There was an error reading '%s'", data->iname);
 		exit(2);
 	}
-	pgm = ft_strnew(BUFF_SIZE + 1);
+	pgm = ft_strnew(BUFF_SIZE);
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[ret] = '\0';
@@ -88,14 +85,15 @@ void	ft_getheader(char **pgm, t_header *header)
 	i = -1;
 	tmp = *pgm;
 	if (tmp[0] == 'P' && tmp[1] == '2')
-	{
-		header->p = (char*)malloc(sizeof(char) * 3);
-		header->p = ft_strncpy(header->p, tmp, 2);
 		tmp += 2;
-	}	
+	else
+	{
+		printf("Invalid pgm file, only P2 supported.\n");
+		exit(1);
+	}
 	while (*tmp)
 	{
-		if (*tmp == ' ' || *tmp == '\n')
+		while (*tmp == ' ' || *tmp == '\n' || *tmp == '\f' || *tmp == '\v' || *tmp == '\r' || *tmp == '\t')
 			tmp++;
 		if ((*tmp >= '0' && *tmp <= '9') && !header->width)
 		{
@@ -126,10 +124,9 @@ void	ft_make_o(char *pgm, t_header *header, t_contrast *flags)
 	int		nb;
 
 	tmp = pgm;
-	// printf("%f\n", flags->contrast);
 	if ((fd = open(flags->oname, O_CREAT | O_WRONLY | O_TRUNC, 0666)) != -1)
 	{
-		dprintf(fd, "%s\n%d %d\n%d", header->p, header->width, header->height, header->maxgrey);
+		dprintf(fd, "P2\n%d %d\n%d", header->width, header->height, header->maxgrey);
 		while (*tmp)
 		{
 			if (*tmp == ' ' || *tmp == '\n')
@@ -145,7 +142,6 @@ void	ft_make_o(char *pgm, t_header *header, t_contrast *flags)
 			tmp++;
 		}
 	}
-	printf("file written?\n");
 }
 
 int	main(int ac, char **av)
@@ -157,7 +153,7 @@ int	main(int ac, char **av)
 	if (ac == 7)
 	{
 		ft_parseflags(av, &data);
-		pgm = ft_savefile(&data, &header);
+		pgm = ft_savefile(&data);
 		ft_getheader(&pgm, &header);
 		ft_make_o(pgm, &header, &data);
 	}
