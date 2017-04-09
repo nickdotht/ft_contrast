@@ -6,7 +6,7 @@
 /*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 15:29:09 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 11:55:39 by qho              ###   ########.fr       */
+/*   Updated: 2017/04/09 12:10:28 by qho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,15 @@ char	*ft_savefile(t_contrast *data, t_header *header)
 	char		*buf;
 	char		*pgm;
 	int			ret;
-	if ((fd = open(data->iname, O_RDONLY)))
+
+	(void) header;
+	if ((fd = open(data->iname, O_RDONLY)) != -1)
 		buf = (char *)malloc(sizeof(char) + (BUFF_SIZE + 1));
+	else
+	{
+		printf("There was an error reading '%s'", data->iname);
+		exit(2);
+	}
 	pgm = ft_strnew(BUFF_SIZE + 1);
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
