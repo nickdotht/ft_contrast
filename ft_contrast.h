@@ -6,7 +6,7 @@
 /*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 17:01:54 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 08:32:30 by qho              ###   ########.fr       */
+/*   Updated: 2017/04/09 11:12:25 by qho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct		s_header
 
 void	ft_parseflags(char **input, t_contrast *data);
 char	*ft_savefile(t_contrast *data, t_header *header);
-int		ft_numlen(int	nb);
 void	ft_getheader(char **pgm, t_header *header);
+void	ft_make_o(char *pgm, t_header *header, t_contrast *flags);
 
 
 
