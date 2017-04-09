@@ -6,7 +6,7 @@
 /*   By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 17:01:54 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 11:51:54 by jrameau          ###   ########.fr       */
+/*   Updated: 2017/04/09 12:25:27 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,13 @@ typedef struct		s_contrast
 
 typedef struct		s_header
 {
-	char		*p;
 	int			width;
 	int			height;
 	int			maxgrey;
 }					t_header;
 
 void	ft_parseflags(char **input, t_contrast *data);
-char	*ft_savefile(t_contrast *data, t_header *header);
+char	*ft_savefile(t_contrast *data);
 void	ft_getheader(char **pgm, t_header *header);
 void	ft_make_o(char *pgm, t_header *header, t_contrast *flags);
 
