@@ -6,7 +6,7 @@
 /*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 15:29:09 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 11:44:25 by qho              ###   ########.fr       */
+/*   Updated: 2017/04/09 11:55:39 by qho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void	ft_make_o(char *pgm, t_header *header, t_contrast *flags)
 	int		nb;
 
 	tmp = pgm;
-	// printf("%f\n", flags->contrast);
 	if ((fd = open(flags->oname, O_CREAT | O_WRONLY | O_TRUNC, 0666)) != -1)
 	{
 		dprintf(fd, "%s\n%d %d\n%d", header->p, header->width, header->height, header->maxgrey);
