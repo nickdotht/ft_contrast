@@ -6,11 +6,7 @@
 /*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 15:29:09 by qho               #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2017/04/09 12:10:28 by qho              ###   ########.fr       */
-=======
-/*   Updated: 2017/04/09 12:24:38 by jrameau          ###   ########.fr       */
->>>>>>> ee1fd9835cf11493d2aca5399e2b76f70b04390f
+/*   Updated: 2017/04/09 15:54:57 by qho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +108,11 @@ void	ft_getheader(char **pgm, t_header *header)
 		if ((*tmp >= '0' && *tmp <= '9') && !header->maxgrey)
 		{
 			header->maxgrey = ft_atoi(tmp);
+			if (header->maxgrey > 255)
+			{
+				printf("Invalid pgm file, maximum gray value is over 255\n");
+				exit(1);
+			}
 			tmp += ft_numlen(header->maxgrey);
 		}
 		if (header->width && header->height && header->maxgrey)
