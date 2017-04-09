@@ -6,7 +6,7 @@
 /*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 15:29:09 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 08:36:05 by qho              ###   ########.fr       */
+/*   Updated: 2017/04/09 10:06:18 by qho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*ft_savefile(t_contrast *data, t_header *header)
 		else
 			pgm = ft_strjoin(pgm, buf);
 	}
+	close(fd);
 	return (pgm);
 }
 
@@ -111,9 +112,19 @@ void	ft_getheader(char **pgm, t_header *header)
 	*pgm = tmp;
 }
 
-void	ft_make_o(char **pgm, t_header *header, t_contrast *flags)
+void	ft_make_o(char *pgm, t_header *header, t_contrast *flags)
 {
-	
+	int	fd;
+
+	if ((fd = open(flags->oname, O_CREAT | O_APPEND | O_WRONLY)) != -1)
+	{
+		printf("%d\n", fd);
+		// dprintf(fd, "%s", pgm);
+		ft_putstr_fd(pgm, fd);
+	}
+	printf("%s\n", pgm);
+	printf("file written?\n");
+
 }
 
 int	main(int ac, char **av)
@@ -121,17 +132,14 @@ int	main(int ac, char **av)
 	t_contrast	data;
 	t_header	header;
 	char		*pgm;
-	// int			fd;
-	// char		*buf;
-	// int			ret;
 
 	if (ac == 7)
 	{
 		ft_parseflags(av, &data);
-		printf("about to read %s\n", data.iname);
+		// printf("about to read %s\n", data.iname);
 		pgm = ft_savefile(&data, &header);
 		ft_getheader(&pgm, &header);
-		ft_make_o(&pgm, &header, &data);
+		ft_make_o(pgm, &header, &data);
 	}
 	else
 		printf("usage: ft_contrast -f [inputfile] -c [contrast_val(0-100)] -o [outputfile]\n");
