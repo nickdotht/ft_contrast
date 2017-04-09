@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_contrast.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 17:01:54 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 11:12:25 by qho              ###   ########.fr       */
+/*   Updated: 2017/04/09 11:51:54 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_CONTRAST_H
 
 # include <libft.h>
+# include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
 

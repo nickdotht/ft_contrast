@@ -3,43 +3,61 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qho <qho@student.42.fr>                    +#+  +:+       +#+         #
+#    By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/10 00:39:38 by qho               #+#    #+#              #
-#    Updated: 2017/04/08 17:08:41 by qho              ###   ########.fr        #
+#    Updated: 2017/04/09 11:52:58 by jrameau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = clang
-
-CFLAGS = -Wall -Wextra -Werror
-
 NAME = ft_contrast
 
-INCLUDES = libft/
+# Flags and compiler
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-SRC = ft_contrast.c
+# Project Source dir, files and headers
+INC = ./inc/
+SRCDIR = ./src/
+SRC = $(shell ls src | grep -E ".+\.c")
 
-OBJ = ft_contrast.o \
+# Project Objects dir and files
+OBJDIR = ./obj/
+OBJS = $(addprefix $(OBJDIR), $(SRC:.c=.o))
 
-.PHONY: clean fclean re lib all
+# Libft objects and dirs
+LIBDIR = ./libft/
+LIBFT = ./libft/libft.a
+LIBINC = ./libft/
 
-all: $(NAME)
+all: $(OBJDIR) $(LIBFT) $(NAME)
 
-$(NAME): lib
-	@echo "\033[33mCompiling ft_contrast"
-	@$(CC) -o $(NAME) $(SRC) -I $(INCLUDES) -L libft/ -lft
-	@echo "\033[32mft_contrast made!"
+# Create the object dir
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
 
-lib:
+# Build the objects
+$(OBJDIR)%.o:$(SRCDIR)%.c
+	$(CC) $(CFLAGS) -I$(INC) -I$(LIBINC) -o $@ -c $<
+
+# Build the binary file
+$(NAME): $(OBJS)
+	echo "\033[33mCompiling ft_contrast"
+	@$(CC) -o $(NAME) $(CFLAGS) $(OBJS) $(LIBFT)
+	echo "\033[32mft_contrast made!"
+
+$(LIBFT):
 	@echo "\033[33mRecompiling libft"
-	@make -C libft/ fclean && make -C libft/
+	@make -C $(LIBDIR)
 	
 clean:
-	@/bin/rm -f $(OBJ)
+	@rm -rf $(OBJDIR) 
+	@make -C $(LIBDIR) clean
 
 fclean: clean
-	@/bin/rm -f $(NAME)
+	@rm -f $(NAME)
+	@make -C $(LIBDIR) fclean	
 
 re: fclean all
 	
+.PHONY: clean fclean re lib all
