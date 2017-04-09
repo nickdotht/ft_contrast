@@ -6,7 +6,7 @@
 /*   By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 15:29:09 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 12:03:39 by jrameau          ###   ########.fr       */
+/*   Updated: 2017/04/09 12:05:37 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ void	ft_make_o(char *pgm, t_header *header, t_contrast *flags)
 	int		nb;
 
 	tmp = pgm;
-	printf("%f\n", flags->contrast);
-	if ((fd = open(flags->oname, O_CREAT | O_WRONLY | O_APPEND, 0666)) != -1)
+	// printf("%f\n", flags->contrast);
+	if ((fd = open(flags->oname, O_CREAT | O_WRONLY | O_TRUNC, 0666)) != -1)
 	{
 		dprintf(fd, "%s\n%d %d\n%d", header->p, header->width, header->height, header->maxgrey);
 		while (*tmp)
@@ -139,7 +139,7 @@ void	ft_make_o(char *pgm, t_header *header, t_contrast *flags)
 			else if (*tmp >= '1' && *tmp <= '9')
 			{
 				nb = ft_atoi(tmp);
-				dprintf(fd, "%.0f", (nb * flags->contrast * header->maxgrey));
+				dprintf(fd, "%.0f", (nb * flags->contrast));
 				tmp += ft_numlen(nb) - 1;
 			}
 			tmp++;
