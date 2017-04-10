@@ -6,7 +6,7 @@
 /*   By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 21:30:24 by jrameau           #+#    #+#             */
-/*   Updated: 2017/04/09 18:39:05 by jrameau          ###   ########.fr       */
+/*   Updated: 2017/04/09 19:10:52 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define BUFF_SIZE 42
+# define BUFF_SIZE 2046
 
 # define IS_SPACE(x) (x==' '||x=='\n'||x=='\t'||x=='\f'||x=='\v'||x=='\r')
 
