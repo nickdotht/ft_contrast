@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <jrameau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/24 16:05:11 by qho               #+#    #+#             */
-/*   Updated: 2016/10/10 16:40:13 by qho              ###   ########.fr       */
+/*   Created: 2016/09/23 01:39:09 by jrameau           #+#    #+#             */
+/*   Updated: 2017/01/17 22:39:47 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,28 @@
 
 char	*ft_strstr(const char *big, const char *little)
 {
-	char	*str;
-	char	*match;
+	int		i;
+	int		j;
+	int		k;
+	int		good;
 
-	if (!*little)
+	if (!ft_strlen(little))
 		return ((char *)big);
-	while (*big)
+	i = -1;
+	good = 0;
+	while (*(big + ++i) && !good)
 	{
-		if (*big == *little)
+		if (*(big + i) == *(little + 0))
 		{
-			str = (char *)big;
-			match = (char *)little;
-			while (*str && *match && *str == *match)
-			{
-				str++;
-				match++;
-			}
-			if (!*match)
-				return ((char *)big);
+			j = 0;
+			k = i;
+			good = 1;
+			while (*(little + j))
+				if (*(little + j++) != *(big + k++))
+					good = 0;
+			if (good)
+				return ((char *)big + i);
 		}
-		big++;
 	}
-	return (0);
+	return (NULL);
 }

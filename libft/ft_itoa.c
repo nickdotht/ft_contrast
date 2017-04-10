@@ -3,59 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/29 14:54:43 by qho               #+#    #+#             */
-/*   Updated: 2016/10/15 22:22:57 by qho              ###   ########.fr       */
+/*   Created: 2016/09/28 02:04:57 by jrameau           #+#    #+#             */
+/*   Updated: 2016/09/28 02:04:59 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_numlen(int n)
+static size_t	get_str_len(int n)
 {
-	int len;
+	size_t		i;
 
-	len = 0;
-	if (n == 0)
-		len = 1;
-	if (n == -2147483648)
-		len = 11;
-	if (n < 0 && n > -2147483648)
-	{
-		n = -n;
-		len++;
-	}
-	while (n > 0)
-	{
-		n = n / 10;
-		len++;
-	}
-	return (len);
+	i = 1;
+	while (n /= 10)
+		i++;
+	return (i);
 }
 
-char		*ft_itoa(int n)
+char			*ft_itoa(int n)
 {
-	char			*num;
-	unsigned int	tmp;
-	int				len;
+	char			*str;
+	size_t			str_len;
+	unsigned int	n_cpy;
 
-	len = ft_numlen(n);
-	num = (char *)malloc(sizeof(char) * (ft_numlen(n) + 1));
-	if (num)
+	str_len = get_str_len(n);
+	n_cpy = n;
+	if (n < 0)
 	{
-		num[len--] = '\0';
-		if (n == 0)
-			num[0] = '0';
-		if (n < 0)
-			num[0] = '-';
-		tmp = ft_absolute_val(n);
-		while (len + 1 && tmp)
-		{
-			num[len] = (tmp % 10) + '0';
-			tmp = tmp / 10;
-			len--;
-		}
+		n_cpy = -n;
+		str_len++;
 	}
-	return (num);
+	if (!(str = ft_strnew(str_len)))
+		return (NULL);
+	str[--str_len] = n_cpy % 10 + '0';
+	while (n_cpy /= 10)
+		str[--str_len] = n_cpy % 10 + '0';
+	if (n < 0)
+		*(str + 0) = '-';
+	return (str);
 }

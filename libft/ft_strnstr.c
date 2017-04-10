@@ -3,50 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/25 16:04:58 by qho               #+#    #+#             */
-/*   Updated: 2016/10/17 13:53:51 by qho              ###   ########.fr       */
+/*   Created: 2016/09/23 03:19:21 by jrameau           #+#    #+#             */
+/*   Updated: 2016/09/25 02:15:51 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	find_little(char *str, char *find, int i, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	while (len && *str && *find && *str == *find)
-	{
-		str++;
-		find++;
-		i++;
-		len--;
-	}
-	len += i;
-	if (!*find)
-		return (0);
-	return (1);
-}
+	size_t		i;
+	size_t		j;
+	size_t		k;
+	int			found;
 
-char		*ft_strnstr(const char *big, const char *little, size_t len)
-{
-	char	*str;
-	char	*find;
-	int		i;
-
-	if (!*little)
+	i = -1;
+	found = 1;
+	if (!ft_strlen(little))
 		return ((char *)big);
-	while (len && *big)
+	while (*(big + ++i) && i < len)
 	{
-		i = 0;
-		if (*big == *little)
+		j = 0;
+		if (*(big + i) == *(little + 0))
 		{
-			str = (char *)big;
-			find = (char *)little;
-			if (find_little(str, find, i, len) == 0)
-				return ((char *)big);
+			k = i;
+			found = 1;
+			while (*(big + k) && *(little + j) && j < len && k < len)
+				if (*(big + k++) != *(little + j++))
+					found = 0;
+			if (found && !*(little + j))
+				return ((char *)big + i);
 		}
-		big++;
-		len--;
 	}
-	return (0);
+	return (NULL);
 }

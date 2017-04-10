@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wrdcnt.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/15 22:12:18 by qho               #+#    #+#             */
-/*   Updated: 2016/10/17 15:00:51 by qho              ###   ########.fr       */
+/*   Created: 2016/09/29 00:01:01 by jrameau           #+#    #+#             */
+/*   Updated: 2016/09/29 00:01:03 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_wrdcnt(char const *s, char c)
+void	ft_lstaddback(t_list **alst, t_list *new)
 {
-	int	cnt;
-	int	i;
+    t_list  *tmp;
+    t_list  *head;
 
-	cnt = 0;
-	i = 0;
-	while (s[i])
-	{
-		if ((i == 0 && s[i] != c) || (s[i] != c && s[i - 1] == c))
-			cnt++;
-		i++;
-	}
-	return (cnt);
+    tmp = *alst;
+    head = tmp;
+    while (tmp->next)
+        tmp = tmp->next;
+    tmp->next = new;
+	*alst = head;
 }

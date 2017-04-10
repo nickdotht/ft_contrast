@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/27 18:59:51 by qho               #+#    #+#             */
-/*   Updated: 2016/10/08 15:40:55 by qho              ###   ########.fr       */
+/*   Created: 2016/09/28 22:18:35 by jrameau           #+#    #+#             */
+/*   Updated: 2016/09/28 22:18:36 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	unsigned int num;
-
 	if (n < 0)
 	{
 		ft_putchar_fd('-', fd);
-		num = (unsigned int)-n;
+		n = -n;
 	}
-	if (n >= 0)
-		num = (unsigned int)n;
-	if (num >= 10)
+	if (n == -2147483648)
 	{
-		ft_putnbr_fd(num / 10, fd);
-		ft_putnbr_fd(num % 10, fd);
+		ft_putchar_fd('2', fd);
+		n %= 1000000000;
+		n = -n;
+	}
+	if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
 	}
 	else
-	{
-		ft_putchar_fd('0' + num, fd);
-	}
+		ft_putchar_fd(n + '0', fd);
 }

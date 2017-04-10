@@ -2,3 +2,4 @@
 *.a
 ft_contrast
 *.pgm
+*.DS_Store
