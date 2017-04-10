@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_contrast.h                                      :+:      :+:    :+:   */
+/*   ft_contrast_th.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 17:01:54 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 21:16:03 by jrameau          ###   ########.fr       */
+/*   Updated: 2017/04/09 20:59:20 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_CONTRAST_H
-# define FT_CONTRAST_H
+#ifndef FT_CONTRAST_TH_H
+# define FT_CONTRAST_TH_H
 
 # include <libft.h>
 # include <stdlib.h>
@@ -32,5 +32,12 @@ typedef struct		s_header
 	int			height;
 	int			maxgrey;
 }					t_header;
+
+typedef struct s_line
+{
+	int *fd;
+	char **lines;
+	t_flags flags;
+}			t_line;
 
 #endif

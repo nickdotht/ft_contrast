@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_contrast.c                                      :+:      :+:    :+:   */
+/*   ft_contrast_th.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 15:29:09 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 20:13:32 by jrameau          ###   ########.fr       */
+/*   Updated: 2017/04/09 21:18:19 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_contrast.h"
+#include "ft_contrast_th.h"
 
-void	flag_handler(char **input, t_flags *flags)
+void	flag_handler_th(char **input, t_flags *flags)
 {
 	int i;
 
@@ -39,7 +39,7 @@ void	flag_handler(char **input, t_flags *flags)
 
 }
 
-void line_handler(int *fd, char *line, t_flags flags, char *next)
+void line_handler_th(int *fd, char *line, t_flags flags, char *next)
 {
 	int nb;
 	
@@ -61,13 +61,12 @@ void line_handler(int *fd, char *line, t_flags flags, char *next)
 		dprintf(*fd, "\n");
 }
 
-void image_handler(int *fd, t_header header, t_flags flags)
+void image_handler_th(int *fd, t_header header, t_flags flags)
 {
-	char **lines;
 	int fd2;
 	int i;
+	t_line line;
 
-	(void)header;
 	if ((fd2 = open(flags.oname, O_CREAT | O_WRONLY | O_TRUNC, 0666)) == -1)
 	{
 		dprintf(2, "Couldn't create '%s'", flags.oname);
@@ -75,15 +74,15 @@ void image_handler(int *fd, t_header header, t_flags flags)
 	}
 	dprintf(fd2, "P2\n%d %d\n%d\n", header.width, header.height, header.maxgrey);
 	i = -1;
-	lines  = (char **)ft_memalloc(sizeof(char *));
-	while (get_next_line(*fd, &lines[++i]) != 0)
+	line.lines  = (char **)ft_memalloc(sizeof(char *));
+	while (get_next_line(*fd, &line.lines[++i]) != 0)
 		;
 	i = -1;
-	while (lines[++i])
-		line_handler(&fd2, lines[i], flags, lines[i + 1]);
+	while (line.lines[++i])
+		line_handler_th(&fd2, line.lines[i], flags, line.lines[i + 1]);
 }
 
-int header_handler(t_flags flags, t_header *header)
+int header_handler_th(t_flags flags, t_header *header)
 {
 	int i;
 	char *line;
@@ -128,9 +127,9 @@ int	main(int ac, char **av)
 
 	if (ac == 7)
 	{
-		flag_handler(av, &flags);
-		fd = header_handler(flags, &header);
-		image_handler(&fd, header, flags);
+		flag_handler_th(av, &flags);
+		fd = header_handler_th(flags, &header);
+		image_handler_th(&fd, header, flags);
 		close(fd);
 	}
 	else

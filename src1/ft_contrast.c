@@ -6,7 +6,7 @@
 /*   By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 15:29:09 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 20:13:32 by jrameau          ###   ########.fr       */
+/*   Updated: 2017/04/09 21:17:06 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,10 @@ void line_handler(int *fd, char *line, t_flags flags, char *next)
 
 void image_handler(int *fd, t_header header, t_flags flags)
 {
-	char **lines;
 	int fd2;
 	int i;
+	char **lines;
 
-	(void)header;
 	if ((fd2 = open(flags.oname, O_CREAT | O_WRONLY | O_TRUNC, 0666)) == -1)
 	{
 		dprintf(2, "Couldn't create '%s'", flags.oname);
