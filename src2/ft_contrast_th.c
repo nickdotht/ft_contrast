@@ -43,13 +43,11 @@ void *line_handler_th(void *arg)
 {
 	int nb;
 	t_line *line = (t_line *)arg;
-	int j;
 	int max;
 	
 	max = line->idx + 64;
 	while (line->idx++ < max)
 	{
-		j = -1;
 		while (**(line->lines))
 		{
 			if (IS_SPACE(**line->lines))
