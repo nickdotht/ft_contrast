@@ -51,4 +51,4 @@ Some would say that this is not a good introduction to multi threaded programmin
 
 [1]: https://github.com/queenieho
 [2]: https://github.com/r4meau/ft_contrast#challenges-we-ran-into
-[3]: [waiting]
+[3]: [https://github.com/R4meau/ft_contrast/blob/master/ft_contrast.pdf]
