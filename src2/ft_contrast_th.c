@@ -6,7 +6,7 @@
 /*   By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 15:29:09 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 21:18:19 by jrameau          ###   ########.fr       */
+/*   Updated: 2017/04/09 23:35:59 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,47 +39,73 @@ void	flag_handler_th(char **input, t_flags *flags)
 
 }
 
-void line_handler_th(int *fd, char *line, t_flags flags, char *next)
+void *line_handler_th(void *arg)
 {
 	int nb;
+	t_line *line = (t_line *)arg;
+	int j;
+	int max;
 	
-	while (*line)
+	max = line->idx + 64;
+	while (line->idx++ < max)
 	{
-		if (IS_SPACE(*line))
-			dprintf(*fd, "%c", *line);
-		else if (*line == '0')
-			dprintf(*fd, "0");
-		else if (*line >= '1' && *line <= '9')
+		j = -1;
+		while (**(line->lines))
 		{
-			nb = ft_atoi(line);
-			dprintf(*fd, "%.0f", (nb * flags.contrast));
-			line += ft_intlen(nb) - 1;
+			if (IS_SPACE(**line->lines))
+				dprintf(line->fd, "%c", **line->lines);
+			else if (**(line->lines) == '0')
+				dprintf(line->fd, "0");
+			else if (**(line->lines) >= '1' && **(line->lines) <= '9')
+			{
+				nb = ft_atoi(*(line->lines));
+				dprintf(line->fd, "%.0f", (nb * line->flags.contrast));
+				*(line->lines) += ft_intlen(nb) - 1;
+			}
+			*(line->lines) += 1;
 		}
-		line++;
+		// if (next)
+		// 	dprintf(line->fd, "\n");
 	}
-	if (next)
-		dprintf(*fd, "\n");
+	return (NULL);
 }
 
 void image_handler_th(int *fd, t_header header, t_flags flags)
 {
-	int fd2;
-	int i;
 	t_line line;
-
-	if ((fd2 = open(flags.oname, O_CREAT | O_WRONLY | O_TRUNC, 0666)) == -1)
+	t_line *lines;
+	pthread_t *tid;
+	int i;
+	int j;
+	
+	tid = (pthread_t *)ft_memalloc( NUM_THREADS * sizeof(pthread_t) );
+	if ((line.fd = open(flags.oname, O_CREAT | O_WRONLY | O_TRUNC, 0666)) == -1)
 	{
 		dprintf(2, "Couldn't create '%s'", flags.oname);
 		exit(2);
 	}
-	dprintf(fd2, "P2\n%d %d\n%d\n", header.width, header.height, header.maxgrey);
-	i = -1;
+	dprintf(line.fd, "P2\n%d %d\n%d\n", header.width, header.height, header.maxgrey);
+	line.idx = -1;
 	line.lines  = (char **)ft_memalloc(sizeof(char *));
-	while (get_next_line(*fd, &line.lines[++i]) != 0)
+	while (get_next_line(*fd, &line.lines[++line.idx]) != 0)
 		;
+	line.idx = 0;
+	line.flags = flags;
 	i = -1;
-	while (line.lines[++i])
-		line_handler_th(&fd2, line.lines[i], flags, line.lines[i + 1]);
+	lines = (t_line *)ft_memalloc(sizeof(t_line) * 64);
+	while (line.lines[line.idx])
+	{
+		lines[++i].fd = line.fd;
+		lines[i].lines = line.lines;
+		lines[i].flags = line.flags;
+		lines[i].idx = line.idx;
+		pthread_create(&tid[i], NULL, line_handler_th, &lines[i]);
+		line.lines += 64;
+		line.idx += 64;
+	}
+	j = 0;
+	while (line.lines[j])
+		pthread_join( tid[j++], NULL);
 }
 
 int header_handler_th(t_flags flags, t_header *header)

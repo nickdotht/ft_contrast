@@ -6,7 +6,7 @@
 #    By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/10 00:39:38 by qho               #+#    #+#              #
-#    Updated: 2017/04/09 21:22:34 by jrameau          ###   ########.fr        #
+#    Updated: 2017/04/09 22:24:06 by jrameau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ $(OBJDIR1)%.o:$(SRCDIR1)%.c
 
 # Build the objects 2
 $(OBJDIR2)%.o:$(SRCDIR2)%.c
-	$(CC) $(CFLAGS) -I$(INC) -I$(LIBINC) -o $@ -c $<
+	$(CC) -g $(CFLAGS) -I$(INC) -I$(LIBINC) -o $@ -c $<
 
 # Build the binary file 1
 $(NAME1): $(OBJS1)

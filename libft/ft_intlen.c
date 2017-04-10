@@ -3,29 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 13:09:38 by jrameau           #+#    #+#             */
-/*   Updated: 2017/04/09 21:05:54 by qho              ###   ########.fr       */
+/*   Updated: 2017/04/09 21:38:37 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 static int	largeint(int num)
 {
-	if (num >= 100000)
+	if (num >= 10000000)
 	{
-		if (num >= 10000000)
-		{
-			if (num >= 1000000000)
-				return (10);
-			if (num >= 100000000)
-				return (9);
-			return (8);
-		}
-		if (num >= 1000000)
-			return (7);
-		return (6);
+		if (num >= 1000000000)
+			return (10);
+		if (num >= 100000000)
+			return (9);
+		return (8);
 	}
+	if (num >= 1000000)
+		return (7);
+	return (6);
 }
 
 int			ft_intlen(int num)

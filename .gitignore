@@ -1,5 +1,6 @@
 *.o
 *.a
 ft_contrast
+ft_contrast_th
 *.pgm
 *.DS_Store

@@ -6,7 +6,7 @@
 /*   By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 17:01:54 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 20:59:20 by jrameau          ###   ########.fr       */
+/*   Updated: 2017/04/09 23:36:10 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <pthread.h>
+
+# define NUM_THREADS 32
 
 typedef struct		s_flags
 {
@@ -35,9 +37,10 @@ typedef struct		s_header
 
 typedef struct s_line
 {
-	int *fd;
+	int fd;
 	char **lines;
 	t_flags flags;
+	int idx;
 }			t_line;
 
 #endif
