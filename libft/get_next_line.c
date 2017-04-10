@@ -6,7 +6,7 @@
 /*   By: jrameau <jrameau@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 22:52:30 by jrameau           #+#    #+#             */
-/*   Updated: 2017/04/09 18:06:20 by jrameau          ###   ########.fr       */
+/*   Updated: 2017/04/09 19:28:52 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ int						get_next_line(const int fd, char **line)
 	if (ret < BUFF_SIZE && !ft_strlen(curr->content))
 		return (0);
 	i = ft_copyuntil(line, curr->content, '\n');
-	(i < (int)ft_strlen(curr->content))
-		? curr->content += (i + 1)
-		: ft_strclr(curr->content);
+	(i < (int)ft_strlen(curr->content)) ? curr->content += (i + 1) :
+		ft_strclr(curr->content);
 	return (1);
 }
