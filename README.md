@@ -6,6 +6,37 @@ This is a 48 hours group project ([I wish...][2]) that taught us multi threaded 
 
 **NOTE:** We failed to finish this project in time. At the time of writing, this project is still in progress.
 
+## Project Instructions
+
+Click here to read the PDF of the project (WARNING: Not for the grammar nazi ¯\\\_(ツ)_/¯)
+
+In summary we must create three commands:
+  1. **ft_contrast:** Uses a linear method of reading, calculating and writing for a file.
+  2. **ft_contrast_th:** Uses multi threading to do the same thing.
+  3. **ft_contrast_tp:** Uses my own thread pool library to make the process even more efficient. Basically just doing *ft_contrast_th* the right way.
+
+
+# Building and running the project
+
+After cloning or downloading the project, `cd` into the project root directory and run `make`.
+
+For *ft_contrast* only, run: `make ft_contrast`
+
+For *ft_contrast_th* only, run: `make ft_contrast_th`
+
+There might be some errors for *ft_contrast_th*.
+
+To run/test the commands you use the following commands for ft_contrast and ft_contrast_th respectively:
+
+    ./ft_contrast -f feep2.pgm -o result.pgm -c 23
+
+    ./ft_contrast_th -f feep2.pgm -o result.pgm -c 23
+
+They take the following flags followed by their values as arguments:
+* **-f**: input file
+* **-o:** output file
+* **-c:** Contrast level percentage
+
 ## Challenges we ran into
 - **Time:** We were supposed to have 48 hours, unfortunately we had a 24 hours hackaton the day before. So we ended up just having less than 24 hours.
 - **Fatigue**: After that hackathon we were exhausted.
