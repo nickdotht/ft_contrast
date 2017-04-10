@@ -8,7 +8,7 @@ This is a 48 hours group project ([I wish...][2]) that taught us multi threaded 
 
 ## Project Instructions
 
-Click here to read the PDF of the project (WARNING: Not for the grammar nazi ¯\\\_(ツ)_/¯)
+[Click here to read the PDF of the project][3] (WARNING: Not for the grammar nazi ¯\\\_(ツ)_/¯)
 
 In summary we must create three commands:
   1. **ft_contrast:** Uses a linear method of reading, calculating and writing for a file.
@@ -16,7 +16,7 @@ In summary we must create three commands:
   3. **ft_contrast_tp:** Uses my own thread pool library to make the process even more efficient. Basically just doing *ft_contrast_th* the right way.
 
 
-# Building and running the project
+## Building and running the project
 
 After cloning or downloading the project, `cd` into the project root directory and run `make`.
 
@@ -51,3 +51,4 @@ Some would say that this is not a good introduction to multi threaded programmin
 
 [1]: https://github.com/queenieho
 [2]: https://github.com/r4meau/ft_contrast#challenges-we-ran-into
+[3]: [waiting]
