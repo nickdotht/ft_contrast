@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_strendswith.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrameau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jrameau <jrameau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/26 23:22:13 by jrameau           #+#    #+#             */
-/*   Updated: 2016/09/26 23:22:15 by jrameau          ###   ########.fr       */
+/*   Created: 2017/01/17 20:56:49 by jrameau           #+#    #+#             */
+/*   Updated: 2017/01/17 23:58:22 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+int   ft_strendswith(char *s1, char *s2)
 {
-	int		i;
+    int     i;
 
-	i = -1;
-	if (s && f)
-		while (*(s + ++i))
-			f(i, s + i);
+    i = -1;
+    while (s1[++i])
+        if (s1[i] == s2[0])
+            if (ft_strcmp(s1 + i, s2) == 0)
+                return (1);
+    return (0);
 }

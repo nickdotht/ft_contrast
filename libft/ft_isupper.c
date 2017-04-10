@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_isupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrameau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/26 23:22:13 by jrameau           #+#    #+#             */
-/*   Updated: 2016/09/26 23:22:15 by jrameau          ###   ########.fr       */
+/*   Created: 2016/09/23 12:42:09 by jrameau           #+#    #+#             */
+/*   Updated: 2016/09/23 12:42:11 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+int		ft_isupper(int c)
 {
-	int		i;
-
-	i = -1;
-	if (s && f)
-		while (*(s + ++i))
-			f(i, s + i);
+	return (c <= 'Z' && c >= 'A');
 }

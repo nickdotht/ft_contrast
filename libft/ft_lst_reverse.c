@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstrev.c                                        :+:      :+:    :+:   */
+/*   ft_lst_reverse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/15 21:53:40 by qho               #+#    #+#             */
-/*   Updated: 2016/10/15 21:54:25 by qho              ###   ########.fr       */
+/*   Created: 2016/10/15 16:09:31 by jrameau           #+#    #+#             */
+/*   Updated: 2016/10/15 16:09:37 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstrev(t_list **begin_list)
+t_list		*ft_lst_reverse(t_list *alst)
 {
-	t_list *current;
-	t_list *previous;
-	t_list *next;
+	t_list	*prev;
+	t_list	*cur;
+	t_list	*next;
 
-	current = *begin_list;
-	previous = NULL;
-	while (current)
+	prev = NULL;
+	cur = alst;
+	while (cur != NULL)
 	{
-		next = current->next;
-		current->next = previous;
-		previous = current;
-		current = next;
+		next = cur->next;
+		cur->next = prev;
+		prev = cur;
+		cur = next;
 	}
-	*begin_list = previous;
+	alst = prev;
+	return (alst);
 }

@@ -3,34 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/25 16:52:14 by qho               #+#    #+#             */
-/*   Updated: 2016/10/13 11:13:42 by qho              ###   ########.fr       */
+/*   Created: 2016/09/23 04:22:10 by jrameau           #+#    #+#             */
+/*   Updated: 2016/09/23 04:22:11 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int				i;
-	unsigned char	*s1a;
-	unsigned char	*s2a;
+	int		i;
 
 	i = 0;
-	s1a = (unsigned char *)s1;
-	s2a = (unsigned char *)s2;
-	if (s1a[i] == '\0')
-		return (s1a[i] - s2a[i]);
-	while ((s1a[i] != '\0' || s2a[i] != '\0') && n)
-	{
-		if (s2a[i] == '\0')
-			return (s1a[i]);
-		else if (s2a[i] != s1a[i])
-			return (s1a[i] - s2a[i]);
+	while (*(s1 + i) && *(s1 + i) == *(s2 + i) && i < (int)n - 1)
 		i++;
-		n--;
-	}
+	if (n)
+		return (*((unsigned char *)s1 + i) - *((unsigned char *)s2 + i));
 	return (0);
 }
