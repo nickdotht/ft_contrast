@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_end.c                                         :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <jrameau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/15 22:17:15 by qho               #+#    #+#             */
-/*   Updated: 2016/10/15 22:18:14 by qho              ###   ########.fr       */
+/*   Created: 2016/12/14 17:33:27 by jrameau           #+#    #+#             */
+/*   Updated: 2017/01/15 10:18:18 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	find_end(int i, char const *s)
+int     ft_strstartswith(char *s1, char *s2)
 {
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		i--;
-	return (i + 1);
+    int     i;
+
+    i = -1;
+    while (s2[++i])
+        if (s1[i] != s2[i])
+            return (0);
+    return (1);
 }

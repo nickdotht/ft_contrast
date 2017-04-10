@@ -3,78 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/29 11:36:51 by qho               #+#    #+#             */
-/*   Updated: 2016/10/17 14:16:24 by qho              ###   ########.fr       */
+/*   Created: 2016/09/27 13:18:35 by jrameau           #+#    #+#             */
+/*   Updated: 2016/09/27 13:18:36 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_location(int loc, char const *s, char c)
+static int		get_word_len(char const *str, char c)
 {
 	int	i;
+	int	len;
 
-	i = loc;
-	while (s[i])
-	{
-		if (s[i] != c)
-		{
-			loc = i;
-			break ;
-		}
-		i++;
-	}
-	return (loc);
-}
-
-static int	ft_wordlen(int loc, char const *s, char c)
-{
-	int len;
-
+	i = 0;
 	len = 0;
-	while (s[loc])
+	while (str[i] == c)
+		i++;
+	while (str[i] != c && str[i] != '\0')
 	{
-		if (s[loc] == c)
-			break ;
+		i++;
 		len++;
-		loc++;
 	}
 	return (len);
 }
 
-static void	ft_getwords(char const *s, char **words, char c)
+char			**ft_strsplit(char const *s, char c)
 {
-	int location;
-	int wlen;
-	int j;
-	int l;
+	int		i;
+	int		j;
+	int		k;
+	char	**str2;
 
-	location = 0;
+	if (!s || !(str2 = (char **)malloc(sizeof(*str2) *
+		(ft_countwords(s, c) + 1))))
+		return (NULL);
+	i = -1;
 	j = 0;
-	while (j < ft_wrdcnt(s, c))
+	while (++i < ft_countwords(s, c))
 	{
-		l = 0;
-		location = ft_location(location, s, c);
-		wlen = ft_wordlen(location, s, c);
-		words[j] = (char *)malloc(sizeof(char) * (wlen + 1));
-		while (l < wlen)
-			words[j][l++] = s[location++];
-		words[j][l] = '\0';
-		j++;
+		k = 0;
+		if (!(str2[i] = ft_strnew(get_word_len(&s[j], c) + 1)))
+			str2[i] = NULL;
+		while (s[j] == c)
+			j++;
+		while (s[j] != c && s[j])
+			str2[i][k++] = s[j++];
+		str2[i][k] = '\0';
 	}
-	words[j] = NULL;
-}
-
-char		**ft_strsplit(char const *s, char c)
-{
-	char	**words;
-
-	words = NULL;
-	if (s && c)
-		words = (char **)malloc(sizeof(char *) * (ft_wrdcnt(s, c) + 1));
-	if (words)
-		ft_getwords(s, words, c);
-	return (words);
+	str2[i] = 0;
+	return (str2);
 }

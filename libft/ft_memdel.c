@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/27 19:20:15 by qho               #+#    #+#             */
-/*   Updated: 2017/03/09 12:20:34 by qho              ###   ########.fr       */
+/*   Created: 2016/09/26 20:09:07 by jrameau           #+#    #+#             */
+/*   Updated: 2016/09/26 20:09:08 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,8 @@
 
 void	ft_memdel(void **ap)
 {
-	char	**cp;
-	int		i;
-	int		j;
-
-	cp = NULL;
-	i = 0;
-	j = 0;
-	if (ap == NULL)
+	if (!ap || !*ap)
 		return ;
-	cp = (char **)ap;
-	while (*cp[i])
-	{
-		while (cp[j])
-		{
-			free(cp[j]);
-			j++;
-		}
-		cp = NULL;
-		free(cp[i]);
-		i++;
-	}
-	*cp = NULL;
+	free(*ap);
+	*ap = 0;
 }

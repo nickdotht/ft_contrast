@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_start.c                                       :+:      :+:    :+:   */
+/*   ft_countwords.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jrameau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/15 22:17:07 by qho               #+#    #+#             */
-/*   Updated: 2016/10/15 22:17:53 by qho              ###   ########.fr       */
+/*   Created: 2016/09/28 15:17:40 by jrameau           #+#    #+#             */
+/*   Updated: 2016/09/28 15:17:41 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	find_start(int i, char const *s)
+int		ft_countwords(char const *str, char c)
 {
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		i++;
-	return (i);
+	int count;
+	int	i;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		while (str[i] == c)
+			i++;
+		if (str[i] != c && str[i] != '\0')
+			count++;
+		while (str[i] != c && str[i] != '\0')
+			i++;
+	}
+	return (count);
 }

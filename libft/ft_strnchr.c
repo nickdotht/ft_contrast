@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_strnchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrameau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/26 23:22:13 by jrameau           #+#    #+#             */
-/*   Updated: 2016/09/26 23:22:15 by jrameau          ###   ########.fr       */
+/*   Created: 2016/11/26 05:38:48 by jrameau           #+#    #+#             */
+/*   Updated: 2016/11/26 05:39:55 by jrameau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+char	*ft_strnchr(char *s, char c, int offset)
 {
 	int		i;
 
 	i = -1;
-	if (s && f)
-		while (*(s + ++i))
-			f(i, s + i);
+	while (s[++i])
+		if (s[i] == c)
+			return (s + i + offset);
+	return (NULL);
 }
