@@ -6,7 +6,7 @@
 /*   By: qho <qho@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 15:29:09 by qho               #+#    #+#             */
-/*   Updated: 2017/04/09 20:30:55 by qho              ###   ########.fr       */
+/*   Updated: 2017/04/09 20:37:26 by qho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	flag_handler(char **input, t_flags *flags)
 			flags->iname = input[++i];
 		else if (ft_strcmp(input[i], "-c") == 0 && !flags->contrast)
 		{
-			flags->contrast = (float)ft_atoi(input[++i])/100;
+			flags->contrast = (float)ft_atoi(input[++i]) / 100;
 			if (flags->contrast < 0 || flags->contrast > 100)
 			{
 				printf("Invalid -c value, please use a value from 0 to 100\n");
@@ -36,13 +36,12 @@ void	flag_handler(char **input, t_flags *flags)
 			printf("Some invalid input\n");
 		i++;
 	}
-
 }
 
-void line_handler(int *fd, char *line, t_flags flags, char *next)
+void	line_handler(int *fd, char *line, t_flags flags, char *next)
 {
 	int nb;
-	
+
 	while (*line)
 	{
 		if (IS_SPACE(*line))
@@ -61,11 +60,11 @@ void line_handler(int *fd, char *line, t_flags flags, char *next)
 		dprintf(*fd, "\n");
 }
 
-void image_handler(int *fd, t_header header, t_flags flags)
+void	image_handler(int *fd, t_header header, t_flags flags)
 {
-	char **lines;
-	int fd2;
-	int i;
+	char	**lines;
+	int		fd2;
+	int		i;
 
 	(void)header;
 	if ((fd2 = open(flags.oname, O_CREAT | O_WRONLY | O_TRUNC, 0666)) == -1)
@@ -73,9 +72,10 @@ void image_handler(int *fd, t_header header, t_flags flags)
 		dprintf(2, "Couldn't create '%s'", flags.oname);
 		exit(2);
 	}
-	dprintf(fd2, "P2\n%d %d\n%d\n", header.width, header.height, header.maxgrey);
+	dprintf(fd2, "P2\n%d %d\n%d\n", header.width, header.height,
+		header.maxgrey);
 	i = -1;
-	lines  = (char **)ft_memalloc(sizeof(char *));
+	lines = (char **)ft_memalloc(sizeof(char *));
 	while (get_next_line(*fd, &lines[++i]) != 0)
 		;
 	i = -1;
@@ -83,12 +83,12 @@ void image_handler(int *fd, t_header header, t_flags flags)
 		line_handler(&fd2, lines[i], flags, lines[i + 1]);
 }
 
-int header_handler(t_flags flags, t_header *header)
+int		header_handler(t_flags flags, t_header *header)
 {
-	int i;
-	char *line;
-	int fd;
-	char **size;
+	int		i;
+	char	*line;
+	int		fd;
+	char	**size;
 
 	i = -1;
 	if ((fd = open(flags.iname, O_RDONLY)) == -1)
@@ -99,13 +99,10 @@ int header_handler(t_flags flags, t_header *header)
 	while (++i < 3)
 	{
 		get_next_line(fd, &line);
-		if (i == 0)
+		if (i == 0 && (!ft_strequ(line, "P2")))
 		{
-			if (!ft_strequ(line, "P2"))
-			{
-				dprintf(2, "Only P2 pgm files allowed\n");
-				exit(1);
-			}
+			dprintf(2, "Only P2 pgm files allowed\n");
+			exit(1);
 		}
 		else if (i == 1)
 		{
@@ -120,9 +117,9 @@ int header_handler(t_flags flags, t_header *header)
 	return (fd);
 }
 
-int	main(int ac, char **av)
+int		main(int ac, char **av)
 {
-	t_flags	flags;
+	t_flags		flags;
 	t_header	header;
 	int			fd;
 
@@ -134,5 +131,5 @@ int	main(int ac, char **av)
 		close(fd);
 	}
 	else
-		printf("usage: ft_contrast -f [inputfile] -c [contrast_val(0-100)] -o [outputfile]\n");
+		printf("usage: ft_contrast -f [inputfile] -c [contrast_val] -o [outputfile]\n");
 }
