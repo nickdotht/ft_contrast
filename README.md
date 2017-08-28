@@ -49,6 +49,10 @@ We completed a good deal of it though. This is why we both decided to keep worki
 
 Some would say that this is not a good introduction to multi threaded programming. The reason is, at 42 this kind of project is called a Rush, a series of projects that teach you something very specific in programming. Those are not normal introductory projects. Normally we don't have time constraints on projects. This is why they are called Rushes.
 
+## Sponsors
+
+<a href="https://app.codesponsor.io/link/Fo4iMpT8bBWXwb54Lj7DPwqL/R4meau/ft_contrast" rel="nofollow"><img src="https://app.codesponsor.io/embed/Fo4iMpT8bBWXwb54Lj7DPwqL/R4meau/ft_contrast.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
+
 [1]: https://github.com/queenieho
 [2]: https://github.com/r4meau/ft_contrast#challenges-we-ran-into
 [3]: https://github.com/R4meau/ft_contrast/blob/master/ft_contrast.pdf
